@@ -3,11 +3,9 @@ import { productsContoller } from "./product.controllers";
 
 const router = express.Router();
 
-router.get("/", productsContoller.getAllProducts);
+router.get("/", productsContoller.getProducts);
 
 router.post("/", productsContoller.createProduct);
-
-router.get('/search', productsContoller.searchProduct)
 
 router.get("/:productID", productsContoller.getSingleProduct);
 

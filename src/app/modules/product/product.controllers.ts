@@ -1,15 +1,29 @@
 import { Request, Response } from "express";
 import { productServices } from "./product.services";
 
-const getAllProducts = async (req: Request, res: Response) => {
+const getProducts = async (req: Request, res: Response) => {
   try {
-    const result = await productServices.getAllStudentsFromDb();
+    const { searchTerm } = req.query as { searchTerm: string }
 
-    res.status(200).json({
-      success: true,
-      message: "Products fetched successfully!",
-      data: result,
-    });
+    if(searchTerm) {
+      const result = await productServices.searchProductFromDB(searchTerm);
+
+      res.status(200).json({
+        success: true,
+        message: "Products matching search term 'iphone' fetched successfully!",
+        data: result,
+      });
+    } else {
+      const result = await productServices.getAllStudentsFromDb();
+
+      res.status(200).json({
+        success: true,
+        message: "Products fetched successfully!",
+        data: result,
+      });
+    }
+    
+    
   } catch (error) {
     console.log("🚀 ~ getAllProducts ~ error:", error);
   }
@@ -86,26 +100,11 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 }
 
-const searchProduct = async (req: Request, res: Response) => {
-  try {
-    const { searchTerm } = req.query as { searchTerm: string }
-    const result = await productServices.searchProductFromDB(searchTerm);
-
-    res.status(200).json({
-      success: true,
-      message: "Products matching search term 'iphone' fetched successfully!",
-      data: result,
-    });
-  } catch (error) {
-    console.log("🚀 ~ searchProduct ~ error:", error);
-  }
-};
 
 export const productsContoller = {
-  getAllProducts,
+  getProducts,
   createProduct,
   getSingleProduct,
   deleteProduct,
-  searchProduct,
   updateProduct
 };

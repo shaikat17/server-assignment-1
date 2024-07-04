@@ -68,6 +68,24 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { productID } = req.params;
+    const updatedData = req.body;
+
+    const result = await productServices.updateProductDB(productID, updatedData);
+
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    })
+  } catch (error) {
+    console.log("🚀 ~ updateProduct ~ error:", error)
+    
+  }
+}
+
 const searchProduct = async (req: Request, res: Response) => {
   try {
     const { searchTerm } = req.query as { searchTerm: string }
@@ -89,4 +107,5 @@ export const productsContoller = {
   getSingleProduct,
   deleteProduct,
   searchProduct,
+  updateProduct
 };

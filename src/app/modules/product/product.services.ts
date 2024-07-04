@@ -59,10 +59,20 @@ const searchProductFromDB = async (query: string) => {
   return result;
 };
 
+const updateProductDB = async (productID: string, updateData: Partial<Product>) => {
+  const result = await ProductModel.findByIdAndUpdate(productID, { $set: updateData},{
+    new: true, 
+    projection: { name: 1, description: 1, price: 1, category: 1, tags: 1, variants: 1, inventory: 1}
+  })
+
+  return result;
+}
+
 export const productServices = {
   insertProductIntoDB,
   getAllStudentsFromDb,
   getSingleProductFromDB,
   deleteProductFromDB,
-  searchProductFromDB
+  searchProductFromDB,
+  updateProductDB
 };

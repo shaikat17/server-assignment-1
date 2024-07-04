@@ -1,17 +1,12 @@
 import express from "express";
+import { orderControllers } from "./order.controllers";
 
 const router = express.Router();
 
-router.get("/", );
+router.get("/", orderControllers.getOrders);
 
-router.post("/", );
+router.post("/", orderControllers.createOrder);
 
-router.get('/search', )
-
-router.get("/:productID", );
-
-
-router.delete("/:productID", );
 
 
 

@@ -17,7 +17,10 @@ app.use("/api/products", productsRoute);
 app.use("/api/orders", ordersRoute);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.status(200).json({
+    success: true,
+    message: "Hello World"
+  })
 });
 
 // Globel Error Handler

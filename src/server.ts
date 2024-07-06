@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { Server } from "http";
 
 let server: Server;
-const port = process.env.PORT || config.port;
+const port = process.env.PORT || 5000;
 
 async function main() {
   try {

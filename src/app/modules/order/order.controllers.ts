@@ -31,13 +31,20 @@ const getOrders = async (req: Request, res: Response) => {
   
       const result = await orderServices.createOrderIntoDB(order);
   
-    //   console.log(result);
-  
+    if(result){
       res.status(200).json({
         success: true,
         message: "Order created successfully!",
         data: result,
       });
+    } else {
+      res.status(200).json({
+        success: false,
+        message: "Insufficient quantity available in inventory",
+      });
+    }
+  
+      
     } catch (error) {
       console.log("🚀 ~ createProduct ~ error:", error);
     }

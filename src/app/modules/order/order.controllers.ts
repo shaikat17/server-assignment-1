@@ -7,11 +7,18 @@ const getOrders = async (req: Request, res: Response) => {
 
         if (email) {
           const orders = await orderServices.getSingleOrdersByEmail(email as string);
-          res.status(200).json({
-            success: true,
-            message: 'Orders fetched successfully for user email!',
-            data: orders,
-          });
+          if(orders.length > 0){
+            res.status(200).json({
+              success: true,
+              message: 'Orders fetched successfully for user email!',
+              data: orders,
+            });
+          } else {
+            res.status(200).json({
+              success: false,
+              message: 'Order not found.',
+            });
+          }
         } else {
           const orders = await orderServices.getAllOrdersFromDB();
           res.status(200).json({

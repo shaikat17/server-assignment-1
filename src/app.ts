@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { productsRoute } from "./app/modules/product/product.routes";
 import { ordersRoute } from "./app/modules/order/order.route";
+import notFound from "./app/middlewares/notFound";
+import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 
 // express
 const app = express();
@@ -18,11 +20,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
-app.get('*', (req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found',
-  });
-})
+// Globel Error Handler
+app.use(globalErrorHandler)
+
+// It will catch all undefined routes
+app.use(notFound)
 
 export default app;

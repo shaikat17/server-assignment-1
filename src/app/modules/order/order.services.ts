@@ -30,7 +30,7 @@ const createOrderIntoDB = async (order: OrderType) => {
 
     // Query the saved order with projection
     const result = await OrderModel.findById(newOrder._id, {
-      _id: 1, // Include this line if you want to include the _id field in the response
+      _id: 1, 
       email: 1,
       productId: 1,
       price: 1,
